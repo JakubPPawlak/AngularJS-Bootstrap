@@ -61,7 +61,7 @@ app.controller('formControl', ($scope, $http) => {
   <h3>Bootstrap & AngularJS Tutorial</h3> 
 </div>
 <div ng-app="app" ng-controller="formControl" style="border:3px solid black;padding:20px;border-radius:15px">
-<h5 style="text-align:center">Filter Table</h5>
+<h5 style="text-align:center;padding:15px;border:1px solid gray;border-radius:10px;background-color:black;color:white;">Filter Table</h5>
 <input type="text" placeholder="Filter term..." class="form-control" ng-model="inputFilter">
 
 <table class="table" style="border-bottom: 1px lightgray solid">
@@ -93,7 +93,7 @@ app.controller('formControl', ($scope, $http) => {
 <button ng-show="showCust" ng-click="addCustClick()" class="btn btn-primary btn-sm" style="background-color:#00cc00;color:white;border:0;margin-left:38%"> Hide Customer Form</button>
 
 <form ng-show="showCust" class="form-group" id="myForm">
-<h5 style="margin-top:15px;">Add New Customer</h5>
+<h5 style="margin-top:15px;text-align:center;padding:15px;border:1px solid gray;border-radius:10px;background-color:black;color:white;">Add New Customer</h5>
   <p>Name: <input type="text" class="form-control" ng-model="name" required></p>
   <p>City: <input type="text" class="form-control" ng-model="city" required></p>
   <p>Country: <input type="text" class="form-control" ng-model="country" required></p>
