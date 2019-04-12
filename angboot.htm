@@ -70,7 +70,7 @@ app.controller('formControl', ($scope, $http) => {
     <th>Customer Location</th>
     <th>Update</th>
     <th>Remove</th>
-	<tr ng-init="get()" ng-repeat="c in customers | filter: inputFilter | limitTo: 5">
+	<tr ng-init="get()" ng-repeat="c in customers | filter: inputFilter | limitTo: 7">
       <td style="border-right:1px solid lightgray">{{ $index + 1 }}. </td>
       <td style="border-right:1px solid lightgray" ng-show="!updating">{{ c.Name }}</td>
       <td style="border-right:1px solid lightgray" ng-show="!updating">{{ c.City + ',' + c.Country}}</td>
@@ -96,9 +96,9 @@ app.controller('formControl', ($scope, $http) => {
 
 <form ng-show="showCust" class="form-group" id="myForm">
 <h5 style="margin-top:15px;text-align:center;padding:15px;border:1px solid gray;border-radius:10px;background-color:black;color:white;">Add New Customer</h5>
-  <p>Name: <input type="text" class="form-control" ng-model="name" required></p>
-  <p>City: <input type="text" class="form-control" ng-model="city" required></p>
-  <p>Country: <input type="text" class="form-control" ng-model="country" required></p>
+  <p>Name: <input type="text" placeholder="eg. John Doe" class="form-control" ng-model="name" required></p>
+  <p>City: <input type="text" placeholder="eg. Dublin" class="form-control" ng-model="city" required></p>
+  <p>Country: <input type="text" placeholder="eg. Ireland" class="form-control" ng-model="country" required></p>
   <button class="btn btn-primary btn-sm btn-block" style="background-color:#00cc00;color:white;border:0" ng-click="create(name,city,country)"> Add </button>
 </form>
 
