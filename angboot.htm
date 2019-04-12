@@ -60,7 +60,7 @@ app.controller('formControl', ($scope, $http) => {
 <div class="jumbotron" style="margin-top:2.5%;margin-bottom:3%;background-color:black;color:white;text-align:center;border-radius: 10px">
   <h3>Bootstrap & AngularJS Tutorial</h3> 
 </div>
-<div ng-app="app" ng-controller="formControl" style="border:2px solid black;padding:20px;border-radius:15px">
+<div ng-app="app" ng-controller="formControl" style="border:0.5px solid lightgray;padding:20px;border-radius:15px">
 <h5 style="text-align:center;padding:15px;border:1px solid gray;border-radius:10px;background-color:black;color:white;">Filter Table</h5>
 <input type="text" placeholder="Filter term..." class="form-control" ng-model="inputFilter">
 
@@ -91,8 +91,8 @@ app.controller('formControl', ($scope, $http) => {
   </tr>
 </table>
 
-<button ng-hide="showCust" ng-click="addCustClick()" class="btn btn-primary btn-sm" style="background-color:#00cc00;color:white;border:0;margin-left:38%"> Show Customer Form</button>
-<button ng-show="showCust" ng-click="addCustClick()" class="btn btn-primary btn-sm" style="background-color:#00cc00;color:white;border:0;margin-left:38%"> Hide Customer Form</button>
+<button ng-hide="showCust" ng-click="addCustClick()" class="btn btn-primary btn-sm" style="background-color:#3399ff;color:white;border:0;margin-left:38%"> <span style="font-size:1.5em;marging-top:5px;margin-right:5px">+</span>Add Customer </button>
+<button ng-show="showCust" ng-click="addCustClick()" class="btn btn-primary btn-sm" style="background-color:#3399ff;color:white;border:0;margin-left:38%"> <span style="font-size:1.5em;marging-top:5px;margin-right:5px">-</span>Hide Customer Form </button>
 
 <form ng-show="showCust" class="form-group" id="myForm">
 <h5 style="margin-top:15px;text-align:center;padding:15px;border:1px solid gray;border-radius:10px;background-color:black;color:white;">Add New Customer</h5>
