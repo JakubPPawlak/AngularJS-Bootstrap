@@ -16,6 +16,15 @@
   top:-200px;
   left: 200px;
 }
+table tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+table th{
+  background-color: white;	
+}
 </style>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
@@ -85,21 +94,21 @@ app.controller('formControl', ($scope, $http) => {
         </div>
       </td>
           
-       <td style="border-right:1px solid lightgray"><button ng-click="update(c)" class="btn btn-outline-primary btn-sm" style="background-color:orange;color:white;border: 0"> Update </button></td>
-      <td><button ng-click="delete(c)" class="btn btn-outline-primary btn-sm" style="background-color:red;color:white;border: 0"> Remove </button></td>
+       <td style="border-right:1px solid lightgray"><button ng-click="update(c)" class="btn btn-outline-primary btn-sm" style="background-color:#ffb366;color:white;border: 0"> Update </button></td>
+      <td><button ng-click="delete(c)" class="btn btn-outline-primary btn-sm" style="background-color:#ff6666;color:white;border: 0"> Remove </button></td>
 
   </tr>
 </table>
 
-<button ng-hide="showCust" ng-click="addCustClick()" class="btn btn-primary btn-sm" style="background-color:#3399ff;color:white;border:0;margin-left:38%"> <span style="font-size:1.5em;marging-top:5px;margin-right:5px">+</span>Add Customer </button>
-<button ng-show="showCust" ng-click="addCustClick()" class="btn btn-primary btn-sm" style="background-color:#3399ff;color:white;border:0;margin-left:38%"> <span style="font-size:1.5em;marging-top:5px;margin-right:5px">-</span>Hide Customer Form </button>
+<button ng-hide="showCust" ng-click="addCustClick()" class="btn btn-primary btn-sm" style="background-color:#80bfff;color:white;border:0"> <span style="font-size:1.5em;marging-top:5px;margin-right:5px">+</span>Add Customer </button>
+<button ng-show="showCust" ng-click="addCustClick()" class="btn btn-primary btn-sm" style="background-color:#80bfff;color:white;border:0"> <span style="font-size:1.5em;marging-top:5px;margin-right:5px">-</span>Hide Customer Form </button>
 
 <form ng-show="showCust" class="form-group" id="myForm">
 <h5 style="margin-top:15px;text-align:center;padding:15px;border:1px solid gray;border-radius:10px;background-color:black;color:white;">Add New Customer</h5>
   <p>Name: <input type="text" placeholder="eg. John Doe" class="form-control" ng-model="name" required></p>
   <p>City: <input type="text" placeholder="eg. Dublin" class="form-control" ng-model="city" required></p>
   <p>Country: <input type="text" placeholder="eg. Ireland" class="form-control" ng-model="country" required></p>
-  <button class="btn btn-primary btn-sm btn-block" style="background-color:#00cc00;color:white;border:0" ng-click="create(name,city,country)"> Add </button>
+  <button class="btn btn-primary btn-sm btn-block" style="background-color:#85e085;color:white;border:0" ng-click="create(name,city,country)"> Add </button>
 </form>
 
 
