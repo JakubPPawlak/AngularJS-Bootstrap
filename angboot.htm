@@ -38,6 +38,7 @@ app.controller('formControl', ($scope, $http) => {
       $scope.selectedCountry;
       $scope.limitNumber = 20;
       $scope.limitActive = true;
+      $scope.cityFilterActive = true;
       $scope.countryFilterActive = true;
       $scope.limits = [ 5, 10, 15, 20 ];
       
@@ -71,16 +72,26 @@ app.controller('formControl', ($scope, $http) => {
       $scope.dropDownChange = () => {
       	$scope.inputFilter = $scope.selectedCountry.Country;
         $scope.limitActive = false;
+        $scope.cityFilterActive = false;
+      }
+      
+      $scope.dropDownChangeCity = () => {
+      	$scope.inputFilter = $scope.selectedCity.City;
+        $scope.limitActive = false;
+        $scope.countryFilterActive = false;
       }
       
       $scope.changeFilterTextBox = () => {
      	 $scope.selectedCountry = null;
+         $scope.selectedCity = null;
       	if($scope.inputFilter == ""){
         	$scope.limitActive = true;
             $scope.countryFilterActive = true;
+            $scope.cityFilterActive = true;
         }else {
         	$scope.limitActive = false;
             $scope.countryFilterActive = false;
+            $scope.cityFilterActive = false;
         }
       }
       
@@ -144,11 +155,15 @@ app.filter('unique', function () {
 
 <p style="margin-top:15px;margin-bottom:15px;">
 Filter by Country: 
-<select ng-disabled="!countryFilterActive" ng-model="selectedCountry" ng-options="x.Country for x in customers | unique:'Country'"	ng-change="dropDownChange()" style="margin-right:20px;margin-left:10px">
+<select ng-disabled="!countryFilterActive" ng-model="selectedCountry" ng-options="x.Country for x in customers | unique:'Country'"	ng-change="dropDownChange()" style="margin-right:5px;margin-left:5px">
+</select>
+
+Filter by City: 
+<select ng-disabled="!cityFilterActive" ng-model="selectedCity" ng-options="x.City for x in customers | unique:'City'"	ng-change="dropDownChangeCity()" style="margin-right:5px;margin-left:5px">
 </select>
 
 Limit results:
-<select ng-disabled="!limitActive" ng-model="limitNumber" ng-options="number for number in limits" ng-change="dropDownChange()" style="width:60px;margin-left:10px">
+<select ng-disabled="!limitActive" ng-model="limitNumber" ng-options="number for number in limits" ng-change="dropDownChange()" style="width:60px;margin-left:px">
 </select>
 </p>
 
