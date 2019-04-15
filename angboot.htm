@@ -74,6 +74,7 @@ app.controller('formControl', ($scope, $http) => {
       }
       
       $scope.changeFilterTextBox = () => {
+     	 $scope.selectedCountry = null;
       	if($scope.inputFilter == ""){
         	$scope.limitActive = true;
             $scope.countryFilterActive = true;
@@ -141,16 +142,15 @@ app.filter('unique', function () {
 <input type="text" placeholder="Filter term..." class="form-control" ng-model="inputFilter" ng-change="changeFilterTextBox()">
 
 
-
-	Filter by Country: 
-<select ng-disabled="!countryFilterActive" ng-model="selectedCountry" ng-options="x.Country for x in customers | unique:'Country'"	ng-change="dropDownChange()">
+<p style="margin-top:15px;margin-bottom:15px;">
+Filter by Country: 
+<select ng-disabled="!countryFilterActive" ng-model="selectedCountry" ng-options="x.Country for x in customers | unique:'Country'"	ng-change="dropDownChange()" style="margin-right:20px;margin-left:10px">
 </select>
 
-<div>
 Limit results:
-<select ng-disabled="!limitActive" ng-model="limitNumber" ng-options="number for number in limits" ng-change="dropDownChange()" >
+<select ng-disabled="!limitActive" ng-model="limitNumber" ng-options="number for number in limits" ng-change="dropDownChange()" style="width:60px;margin-left:10px">
 </select>
-</div>
+</p>
 
 
 <table class="table" style="border-bottom: 1px lightgray solid">
