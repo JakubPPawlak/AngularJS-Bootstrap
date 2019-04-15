@@ -36,7 +36,9 @@ var app = angular.module('app', []);
 app.controller('formControl', ($scope, $http) => {
       $scope.updating = false;
       $scope.selectedCountry;
-      $scope.limitNumber = 10;
+      $scope.limitNumber = 20;
+      $scope.limitActive = true;
+      $scope.countryFilterActive = true;
       $scope.limits = [ 5, 10, 15, 20 ];
       
       $scope.create = (name,city,country) => {
@@ -68,6 +70,21 @@ app.controller('formControl', ($scope, $http) => {
       
       $scope.dropDownChange = () => {
       	$scope.inputFilter = $scope.selectedCountry.Country;
+        $scope.limitActive = false;
+      }
+      
+      $scope.changeFilterTextBox = () => {
+      	if($scope.inputFilter == ""){
+        	$scope.limitActive = true;
+            $scope.countryFilterActive = true;
+        }else {
+        	$scope.limitActive = false;
+            $scope.countryFilterActive = false;
+        }
+      }
+      
+      $scope.clearText = function() {
+    	$scope.inputFilter = null;
       }
       
 });
@@ -120,15 +137,21 @@ app.filter('unique', function () {
 </div>
 <div ng-app="app" ng-controller="formControl" style="border:0.5px solid lightgray;padding:20px;border-radius:15px">
 <h5 style="text-align:center;padding:15px;border:1px solid gray;border-radius:10px;background-color:black;color:white;">Customer Table</h5>
+
 <input type="text" placeholder="Filter term..." class="form-control" ng-model="inputFilter" ng-change="changeFilterTextBox()">
 
-Filter by Country: 
-<select ng-model="selectedCountry" ng-options="x.Country for x in customers | unique:'Country'" ng-change="dropDownChange()">
+
+
+	Filter by Country: 
+<select ng-disabled="!countryFilterActive" ng-model="selectedCountry" ng-options="x.Country for x in customers | unique:'Country'"	ng-change="dropDownChange()">
 </select>
 
+<div>
 Limit results:
-<select ng-model="limitNumber" ng-options="number for number in limits" ng-change="dropDownChange()">
+<select ng-disabled="!limitActive" ng-model="limitNumber" ng-options="number for number in limits" ng-change="dropDownChange()" >
 </select>
+</div>
+
 
 <table class="table" style="border-bottom: 1px lightgray solid">
 	<th>No.</th>
