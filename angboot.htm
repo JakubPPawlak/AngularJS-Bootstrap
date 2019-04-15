@@ -35,6 +35,9 @@ table th{
 var app = angular.module('app', []);
 app.controller('formControl', ($scope, $http) => {
       $scope.updating = false;
+      $scope.selectedCountry;
+      $scope.limitNumber = 10;
+      $scope.limits = [ 5, 10, 15, 20 ];
       
       $scope.create = (name,city,country) => {
           customer = { 
@@ -53,32 +56,79 @@ app.controller('formControl', ($scope, $http) => {
           $scope.customers = response.data.records;
       });
     
-      $scope.delete = (c) => {
-          $scope.customers.pop(c.$$hashkey)
+      $scope.delete = (index) => {
+        if($scope.customers.length){
+          $scope.customers.splice(index, 1);
+        }
       }
       
       $scope.update = (c) => {
       	$scope.updating = !$scope.updating;
       }
+      
+      $scope.dropDownChange = () => {
+      	$scope.inputFilter = $scope.selectedCountry.Country;
+      }
+      
+});
+
+app.filter('unique', function () {
+
+    return function (items, filterOn) {
+
+        if (filterOn === false) {
+            return items;
+        }
+
+        if ((filterOn || angular.isUndefined(filterOn)) && angular.isArray(items)) {
+            var hashCheck = {}, newItems = [];
+
+            var extractValueToCompare = function (item) {
+                if (angular.isObject(item) && angular.isString(filterOn)) {
+                    return item[filterOn];
+                } else {
+                    return item;
+                }
+            };
+
+            angular.forEach(items, function (item) {
+                var valueToCheck, isDuplicate = false;
+
+                for (var i = 0; i < newItems.length; i++) {
+                    if (angular.equals(extractValueToCompare(newItems[i]), extractValueToCompare(item))) {
+                        isDuplicate = true;
+                        break;
+                    }
+                }
+                if (!isDuplicate) {
+                    newItems.push(item);
+                }
+
+            });
+            items = newItems;
+        }
+        return items;
+    };
 });
 </script>
 <!-- endof angularjs -->
 
 
-<body class="container" style="width:100%">
+<body ng-init="get()" class="container" style="width:100%">
 <div class="jumbotron" style="margin-top:2.5%;margin-bottom:3%;background-color:black;color:white;text-align:center;border-radius: 10px">
   <h3>Bootstrap & AngularJS Tutorial</h3> 
 </div>
 <div ng-app="app" ng-controller="formControl" style="border:0.5px solid lightgray;padding:20px;border-radius:15px">
 <h5 style="text-align:center;padding:15px;border:1px solid gray;border-radius:10px;background-color:black;color:white;">Customer Table</h5>
-<input type="text" placeholder="Filter term..." class="form-control" ng-model="inputFilter">
+<input type="text" placeholder="Filter term..." class="form-control" ng-model="inputFilter" ng-change="changeFilterTextBox()">
 
 Filter by Country: 
-<select ng-model="selectedCountry">
-  <option ng-repeat="x in customers" value="{{x.Country}}">{{x.Country}}</option>
+<select ng-model="selectedCountry" ng-options="x.Country for x in customers | unique:'Country'" ng-change="dropDownChange()">
 </select>
 
-
+Limit results:
+<select ng-model="limitNumber" ng-options="number for number in limits" ng-change="dropDownChange()">
+</select>
 
 <table class="table" style="border-bottom: 1px lightgray solid">
 	<th>No.</th>
@@ -86,7 +136,7 @@ Filter by Country:
     <th>Customer Location</th>
     <th>Update</th>
     <th>Remove</th>
-	<tr ng-init="get()" ng-repeat="c in customers | filter: inputFilter | limitTo: 7 | orderBy: selectedCountry">
+	<tr ng-repeat="c in customers | limitTo: limitNumber | filter: inputFilter">
       <td style="border-right:1px solid lightgray">{{ $index + 1 }}. </td>
       <td style="border-right:1px solid lightgray" ng-show="!updating">{{ c.Name }}</td>
       <td style="border-right:1px solid lightgray" ng-show="!updating">{{ c.City + ',' + c.Country}}</td>
@@ -101,8 +151,8 @@ Filter by Country:
         </div>
       </td>
           
-       <td style="border-right:1px solid lightgray"><button ng-click="update(c)" class="btn btn-outline-primary btn-sm" style="background-color:#ffb366;color:white;border: 0"> Update </button></td>
-      <td><button ng-click="delete(c)" class="btn btn-outline-primary btn-sm" style="background-color:#ff6666;color:white;border: 0"> Remove </button></td>
+       <td style="border-right:1px solid lightgray"><button ng-click="update($index)" class="btn btn-outline-primary btn-sm" style="background-color:#ffb366;color:white;border: 0"> Update </button></td>
+      <td><button ng-click="delete($index)" class="btn btn-outline-primary btn-sm" style="background-color:#ff6666;color:white;border: 0"> Remove </button></td>
 
   </tr>
 </table>
